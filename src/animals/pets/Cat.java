@@ -4,7 +4,7 @@ import animals.Animal;
 
 public class Cat extends Animal {
 
-    void say () {
+    void say() {
         System.out.println("мяу");
     }
 }

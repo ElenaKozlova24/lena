@@ -1,4 +1,5 @@
 package data;
 
-public enum Command {ADD,LIST,EXIT
+public enum Command {
+    ADD, LIST, EXIT
 }

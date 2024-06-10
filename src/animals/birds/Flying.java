@@ -1,5 +1,5 @@
 package animals.birds;
 
-public interface Flying {
-    void flying();
+ interface Flying {
+    public void flying();
 }

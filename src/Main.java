@@ -63,11 +63,9 @@ public class Main {
                 animal.setWeight(Float.parseFloat(weigth));
 
 
-
                 System.out.println("Введите цвет");
                 Color color = Color.valueOf(input.next());
                 animal.setColor(color);
-
 
 
                 animals.add(animal);
