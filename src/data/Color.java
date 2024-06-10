@@ -1,9 +1,9 @@
 package data;
 
 public enum Color {
-    RED("Red"),
-    BLUE("Blue"),
-    GREEN("Green");
+    RED("red"),
+    BLUE("blue"),
+    GREEN("green");
 
     private String name;
 

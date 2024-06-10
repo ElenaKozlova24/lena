@@ -14,7 +14,11 @@ public abstract class Animal {
     }
 
     String getAge() {
-        int ostatok = this.age % 10;
+        int ostatok = this.age % 100;
+        if (ostatok >= 11 && ostatok <= 14) {
+            return this.age + " лет";
+        }
+        ostatok = this.age % 10;
         if (ostatok == 1) {
             return this.age + " год";
         }

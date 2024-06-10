@@ -6,6 +6,7 @@ import data.Color;
 import data.Command;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -59,25 +60,37 @@ public class Main {
                 }
 
                 System.out.println("Введите вес");
+
                 String weigth = input.nextLine().trim();
                 animal.setWeight(Float.parseFloat(weigth));
+                //    while (true) {
+
+            //    System.out.println("Введите цвет");
+              //  String animalColor = input.next();
+              //  if (Arrays.asList(Color.values()).contains(Color.valueOf(animalColor.toLowerCase()))) {                    Color color = Color.valueOf(animalColor.toLowerCase());
+              //      animal.setColor(color);
+              //
+              //      break;
+              //  } else {
+              //      System.out.println("Неверный цвет. Пожалуйста, введите корректный цвет.");
+               // }
 
 
-                System.out.println("Введите цвет");
-                Color color = Color.valueOf(input.next());
-                animal.setColor(color);
 
-
+                //}
                 animals.add(animal);
 
+            } else if (command == Command.LIST) {
+                System.out.println("Ваши животные: ");
+                for (Object myAnimal: animals) {
+                    System.out.println(myAnimal);
+                }
 
-            }
-            if (command == Command.LIST) {
-                System.out.println("Ваши животные " + animals);
 
-            }
-            if (command == Command.EXIT) {
+            } else if (command == Command.EXIT) {
                 System.exit(0);
+            } else {
+                System.out.println("Неизвестная команда");
             }
 
         }
