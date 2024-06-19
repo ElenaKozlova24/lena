@@ -15,13 +15,25 @@ public class Main {
     public static void main(String... arcs) {
         ArrayList animals = new ArrayList();
         while (true) {
-            Animal animal = null;
+            Animal animal;
             System.out.println("Введите add/list/exit");
             Scanner input = new Scanner(System.in);
             String text = input.nextLine().trim().toUpperCase(Locale.ROOT);
-            Command command = Command.valueOf(text);
+
+            Command command = null;
+            for (Command cmd : Command.values()) {
+                if (cmd.name().equalsIgnoreCase(text)) {
+                    command = cmd;
+                    break;
+                }
+            }
+            if (command == null) {
+                System.out.println("неправильная команда");
+                continue;
+            }
+
             if (command == Command.ADD) {
-                System.out.println(("Какаое животное вы хотите создать?"));
+                System.out.println(("Какое животное вы хотите создать?"));
                 String type = input.nextLine();
                 if (type.equalsIgnoreCase("собака")) {
                     animal = new Dog();
