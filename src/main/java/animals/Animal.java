@@ -1,5 +1,4 @@
 package animals;
-
 import data.Color;
 
 public abstract class Animal {
@@ -13,7 +12,7 @@ public abstract class Animal {
         return this.name;
     }
 
-    String getAge() {
+    String getFormattedAge() {
         int ostatok = this.age % 100;
         if (ostatok >= 11 && ostatok <= 14) {
             return this.age + " лет";
@@ -74,8 +73,8 @@ public abstract class Animal {
     }
 
     public String toString() {
-        return "Привет! Меня зовут " + this.name + "! Мне " + getAge() +
-                ", я вешу " + this.weight + ", мой цвет " + color + ".";
+        return "Привет! Меня зовут " + this.name + "! Мне " + getFormattedAge() +
+                ", я вешу " + this.weight + ", мой цвет " + color.getName() + ".";
     }
 
 

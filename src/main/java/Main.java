@@ -15,24 +15,33 @@ public class Main {
     public static void main(String... arcs) {
         ArrayList animals = new ArrayList();
         while (true) {
-
-            Animal animal = null;
+            Animal animal;
             System.out.println("Введите add/list/exit");
             Scanner input = new Scanner(System.in);
             String text = input.nextLine().trim().toUpperCase(Locale.ROOT);
-            Command command = Command.valueOf(text);
+
+            Command command = null;
+            for (Command cmd : Command.values()) {
+                if (cmd.name().equalsIgnoreCase(text)) {
+                    command = cmd;
+                    break;
+                }
+            }
+            if (command == null) {
+                System.out.println("неправильная команда");
+                continue;
+            }
+
             if (command == Command.ADD) {
-                System.out.println(("Какаое животное вы хотите создать ?"));
+                System.out.println(("Какое животное вы хотите создать?"));
                 String type = input.nextLine();
-
-
-                if (type.equalsIgnoreCase("Dog")) {
+                if (type.equalsIgnoreCase("собака")) {
                     animal = new Dog();
 
-                } else if (type.equalsIgnoreCase("cat")) {
+                } else if (type.equalsIgnoreCase("кошка")) {
                     animal = new Cat();
 
-                } else if (type.equalsIgnoreCase("Duck")) {
+                } else if (type.equalsIgnoreCase("утка")) {
                     animal = new Duck();
 
                 } else {
@@ -40,9 +49,7 @@ public class Main {
                     continue;
 
                 }
-
-
-                System.out.println("Введите имя?");
+                System.out.println("Введите имя");
                 String name = input.nextLine().trim();
                 animal.setName(name);
 
@@ -60,29 +67,26 @@ public class Main {
                 }
 
                 System.out.println("Введите вес");
-
-                String weigth = input.nextLine().trim();
-                animal.setWeight(Float.parseFloat(weigth));
-                //    while (true) {
-
-            //    System.out.println("Введите цвет");
-              //  String animalColor = input.next();
-              //  if (Arrays.asList(Color.values()).contains(Color.valueOf(animalColor.toLowerCase()))) {                    Color color = Color.valueOf(animalColor.toLowerCase());
-              //      animal.setColor(color);
-              //
-              //      break;
-              //  } else {
-              //      System.out.println("Неверный цвет. Пожалуйста, введите корректный цвет.");
-               // }
-
-
-
-                //}
+                String weight = input.nextLine().trim();
+                animal.setWeight(Float.parseFloat(weight));
+                while (true) {
+                    System.out.println("Введите цвет");
+                    Color color = Color.getFromName(input.nextLine().trim());
+                    if (color != null) {
+                        animal.setColor(color);
+                        break;
+                    } else {
+                        System.out.println("Неверный цвет. Пожалуйста, введите корректный цвет.");
+                        for (Color c : Color.values()) {
+                            System.out.println(c.getName());
+                        }
+                    }
+                }
                 animals.add(animal);
 
             } else if (command == Command.LIST) {
                 System.out.println("Ваши животные: ");
-                for (Object myAnimal: animals) {
+                for (Object myAnimal : animals) {
                     System.out.println(myAnimal);
                 }
 

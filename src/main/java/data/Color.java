@@ -1,11 +1,15 @@
 package data;
 
 public enum Color {
-    RED("red"),
-    BLUE("blue"),
-    GREEN("green");
+    BLACK("чёрный"),
+    WHITE("белый"),
+    GRAY("серый"),
+    BROWN("коричневый"),
+    RED("красный"),
+    GREEN("зелёный"),
+    BLUE("синий");
 
-    private String name;
+    private final String name;
 
     Color(String name) {
         this.name = name;
@@ -15,4 +19,12 @@ public enum Color {
         return name;
     }
 
+    public static Color getFromName(String name) {
+        for (Color color : Color.values()) {
+            if (color.getName().equalsIgnoreCase(name)) {
+                return color;
+            }
+        }
+        return null;
+    }
 }
