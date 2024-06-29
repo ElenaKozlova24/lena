@@ -2,10 +2,12 @@ package tables;
 
 import animals.Animal;
 
-public class AnimalTable extends AbsTable<Animal> {
-    private final String name = "animals";
+public class AnimalTable extends tables.AbsTable<Animal> {
+
 
     public AnimalTable() {
-        super(name);
+        super("animals");
     }
+
+
 }

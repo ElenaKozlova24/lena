@@ -4,15 +4,16 @@ import animals.pets.Dog;
 import animals.birds.Duck;
 import data.Color;
 import data.Command;
+import tables.AbsTable;
+import tables.AnimalTable;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Locale;
-import java.util.Scanner;
+import java.sql.SQLException;
+import java.util.*;
 
 public class Main {
+    private static AbsTable animalTable = new AnimalTable();
 
-    public static void main(String... arcs) {
+    public static void main(String... arcs) throws SQLException {
         ArrayList animals = new ArrayList();
         while (true) {
             Animal animal;
@@ -69,9 +70,10 @@ public class Main {
                 System.out.println("Введите вес");
                 String weight = input.nextLine().trim();
                 animal.setWeight(Float.parseFloat(weight));
+                Color color = null;
                 while (true) {
                     System.out.println("Введите цвет");
-                    Color color = Color.getFromName(input.nextLine().trim());
+                    color = Color.getFromName(input.nextLine().trim());
                     if (color != null) {
                         animal.setColor(color);
                         break;
@@ -83,6 +85,16 @@ public class Main {
                     }
                 }
                 animals.add(animal);
+                List<String> params = new ArrayList<>();
+                params.add("id INT NOT NULL PRIMARY KEY AUTO_INCREMENT");
+                params.add("name VARCHAR(50) NOT NULL");
+                params.add ("age INT NOT NUL");
+                params.add( "weight FLOAT NOT NULL");
+                params.add ("color VARCHAR(20) DEFAULT NULL");
+                params.add ("type VARCHAR(50) NOT NULL");
+
+                animalTable.create(params);
+                animalTable.insert(name, age_int, Float.parseFloat(weight), color, type);
 
             } else if (command == Command.LIST) {
                 System.out.println("Ваши животные: ");

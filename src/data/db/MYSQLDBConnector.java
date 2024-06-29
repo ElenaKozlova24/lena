@@ -11,23 +11,21 @@ public class MYSQLDBConnector implements IDBCConnector {
     private Configurator configurator = new Configurator();
     private Statement statement = null;
     private Connection connection = null;
-    ()
+
 
     private void connect() {
         try {
             Properties configuration = configurator.getConfigurator();
 
-            String url = configuration.getProperty("db_url");
-            String dbName = configuration.getProperty("db_name");
-            String username = configuration.getProperty("username");
-            String password = configuration.getProperty("password");
+            String url = configuration.getProperty("jdbc:mysql://hostname:port/zoo");
+            String dbName = configuration.getProperty("zoo");
+            String username = configuration.getProperty("root");
+            String password = configuration.getProperty("12345678");
 
             String connectionString = String.format("jdbc:mysql://%s/%s", url, dbName);
 
             connection = DriverManager.getConnection(connectionString, username, password);
             statement = connection.createStatement();
-        } catch (IOException ex) {
-            ex.printStackTrace();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -51,7 +49,7 @@ public class MYSQLDBConnector implements IDBCConnector {
     public ResultSet executeQuery(String sql) throws SQLException {
     return statement.executeQuery(sql);
 }
-}
+
 @Override
 public void close () throws SQLException {
     if (statement != null) {
