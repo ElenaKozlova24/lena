@@ -1,21 +1,18 @@
 import animals.Animal;
-import animals.pets.Cat;
-import animals.pets.Dog;
-import animals.birds.Duck;
+import animals.Factory;
+import data.AnimalType;
 import data.Color;
 import data.Command;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Locale;
 import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String... arcs) {
-        ArrayList animals = new ArrayList();
+    public static void main(String[] args) {
+        ArrayList<Animal> animals = new ArrayList<>();
         while (true) {
-            Animal animal;
             System.out.println("Введите add/list/exit");
             Scanner input = new Scanner(System.in);
             String text = input.nextLine().trim().toUpperCase(Locale.ROOT);
@@ -33,45 +30,61 @@ public class Main {
             }
 
             if (command == Command.ADD) {
-                System.out.println(("Какое животное вы хотите создать?"));
-                String type = input.nextLine();
-                if (type.equalsIgnoreCase("собака")) {
-                    animal = new Dog();
+                Animal animal;
+                while (true) {
+                    System.out.println("Какое животное вы хотите создать?");
+                    String type = input.nextLine();
+                    AnimalType animalType = AnimalType.getFromName(type);
+                    if (animalType == null) {
+                        System.out.println("Такого животного нет в списке");
+                        for (AnimalType at : AnimalType.values()) {
+                            System.out.println(at.getName());
+                        }
 
-                } else if (type.equalsIgnoreCase("кошка")) {
-                    animal = new Cat();
-
-                } else if (type.equalsIgnoreCase("утка")) {
-                    animal = new Duck();
-
-                } else {
-                    System.out.println("Такого животного нет в списке");
-                    continue;
-
+                    }
+                    else {
+                    Factory factory = new Factory();
+                    animal = factory.create(animalType);
+                    break;}
                 }
+
                 System.out.println("Введите имя");
                 String name = input.nextLine().trim();
+
                 animal.setName(name);
 
-                System.out.println("Введите возраст");
                 int age_int;
                 while (true) {
+                    System.out.println("Введите возраст");
                     String age = input.nextLine().trim();
-                    age_int = Integer.parseInt(age);
-                    if (age_int > 0 && age_int < 1000) {
-                        animal.setAge(age_int);
+                    try {
+                        age_int = Integer.parseInt(age);
+                        if (age_int > 0 && age_int < 1000) {
+                            animal.setAge(age_int);
+                            break;
+                        } else {
+                            System.out.println("Неверный возраст. Пожалуйста, введите корректный возраст.");
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Неверный формат возраста. Пожалуйста, введите корректный возраст.");
+                    }
+                }
+                int weight_int;
+                while (true) {
+                    System.out.println("Введите вес");
+                    String weight = input.nextLine().trim();
+                    try {
+                        animal.setWeight(Float.parseFloat(weight));
                         break;
-                    } else {
-                        System.out.println("Неверный возраст. Пожалуйста, введите корректный возраст.");
+                    } catch (NumberFormatException e) {
+                        System.out.println("Неверный формат веса. Пожалуйста, введите корректный вес.");
                     }
                 }
 
-                System.out.println("Введите вес");
-                String weight = input.nextLine().trim();
-                animal.setWeight(Float.parseFloat(weight));
                 while (true) {
                     System.out.println("Введите цвет");
-                    Color color = Color.getFromName(input.nextLine().trim());
+                    String personColor = input.nextLine().trim();
+                    Color color = Color.getFromName(personColor);
                     if (color != null) {
                         animal.setColor(color);
                         break;
@@ -86,18 +99,15 @@ public class Main {
 
             } else if (command == Command.LIST) {
                 System.out.println("Ваши животные: ");
-                for (Object myAnimal : animals) {
+                for (Animal myAnimal : animals) {
                     System.out.println(myAnimal);
                 }
-
 
             } else if (command == Command.EXIT) {
                 System.exit(0);
             } else {
                 System.out.println("Неизвестная команда");
             }
-
         }
     }
-
 }
