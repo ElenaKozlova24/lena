@@ -1,5 +1,8 @@
 import animals.Animal;
 import animals.Factory;
+import animals.pets.Cat;
+import animals.pets.Dog;
+import animals.birds.Duck;
 import data.AnimalType;
 import data.Color;
 import data.Command;
@@ -74,6 +77,11 @@ public class Main {
                     System.out.println("Введите вес");
                     String weight = input.nextLine().trim();
                     try {
+                        float weightFloat = Float.parseFloat(weight);
+                    if (weightFloat < 0) {
+                        System.out.println("Вес не может быть отрицательным. Пожалуйста, введите корректный вес.");
+                        continue;
+                    }
                         animal.setWeight(Float.parseFloat(weight));
                         break;
                     } catch (NumberFormatException e) {
