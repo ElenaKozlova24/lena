@@ -1,8 +1,5 @@
 import animals.Animal;
 import animals.Factory;
-import animals.pets.Cat;
-import animals.pets.Dog;
-import animals.birds.Duck;
 import data.AnimalType;
 import data.Color;
 import data.Command;
